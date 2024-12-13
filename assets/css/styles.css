@@ -1,12 +1,9 @@
-/***  FONTS ***/
-@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Rubik+Glitch&display=swap");
 
 :root {
   --primary-color: #cf0f0f;
-  --primary-color-contrast: #ffffff;
-  --field-background-color: #000;
+  --primary-color-contrast: #f7f7f7;
+  --field-background-color: #1a1a1a;
 }
 
 .light-theme {
@@ -45,16 +42,40 @@
   --footer-background-color: #000;
 }
 
-/*** Generic Styles ***/
+.dark-theme button,
+.dark-theme h1,
+.dark-theme h2,
+.dark-theme h3 {
+  letter-spacing: 5px;
+  font-weight: normal;
+}
+
+.dark-theme .invert-element {
+  transform: rotateZ(-180deg) scaleX(-1);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--highlight-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--character-top-image-color);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--header-background-color);
+}
 
 * {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
   transition: 1s;
-}
-
-body {
-  background: var(--page-background);
 }
 
 h1,
@@ -78,23 +99,35 @@ label {
   font-family: "Libre Baskerville", serif;
 }
 
-.dark-theme button,
-.dark-theme h1,
-.dark-theme h2,
-.dark-theme h3 {
-  letter-spacing: 5px;
-  font-weight: normal;
-}
-
 button {
   padding: 16px 32px;
   background-color: transparent;
   font-weight: 900;
   font-family: var(--featured-font-family);
-  font-size: 1.25rem;
+  font: 1.25rem;
   text-transform: uppercase;
   cursor: pointer;
-  transition: 0.5s;
+  transition: background 1s;
+}
+
+input,
+textarea {
+  border: 2px solid var(--primary-color-contrast);
+  background-color: var(--field-background-color);
+  color: var(--primary-color-contrast);
+  padding: 8px;
+  margin-bottom: 24px;
+  font-size: 1rem;
+}
+
+label {
+  margin-bottom: 8px;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: var(--field-background-color);
 }
 
 header {
@@ -111,6 +144,7 @@ header::before {
   width: 100%;
   height: 100%;
   position: absolute;
+
   background-image: url("../images/banner/florest.webp");
   background-repeat: no-repeat;
   background-size: cover;
@@ -119,15 +153,11 @@ header::before {
   opacity: 0.2;
 }
 
-.dark-theme .invert-element {
-  transform: rotateZ(180deg) scaleX(-1);
-}
-
 .header-content {
   max-width: 700px;
   padding: 80px 20px;
   text-align: center;
-  z-index: 2;
+  z-index: 1;
 }
 
 .header-content img {
@@ -139,9 +169,8 @@ header::before {
 }
 
 .header-content button {
-  border: 2px solid var(--primary-color);
+  border: 3px solid var(--primary-color);
   color: var(--primary-color);
-  border-radius: 5px;
 }
 
 .header-content button:hover {
@@ -158,9 +187,10 @@ header::before {
 #top-characters {
   height: 100%;
   background-color: var(--character-top-image-color);
-  mask: var(--character-top-image-src) bottom / 100% no-repeat;
-  --webkit-mask: var(--character-top-image-src) bottom / 100% no-repeat;
   bottom: -3px;
+
+  mask: var(--character-top-image-src) bottom / 100% no-repeat;
+  -webkit-mask: var(--character-top-image-src) bottom / 100% no-repeat;
 }
 
 #bottom-characters {
@@ -179,7 +209,17 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+}
+
+main::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: var(--page-background) no-repeat,
+    url(../images/backgrounds/florest.png) no-repeat;
+  background-size: cover;
+  z-index: -1;
 }
 
 section {
@@ -230,12 +270,10 @@ section {
   border-image-slice: 10;
 }
 
-/* Section 03 - Stranger Things Gallery */
-
 #section-stranger-things-gallery {
   width: 100%;
-  background: var(--background-lamp-image) 120% / 50% no-repeat;
   justify-content: center;
+  background: var(--background-lamp-image) 120% / 50% no-repeat;
 }
 
 #section-stranger-things-gallery .container {
@@ -267,8 +305,6 @@ section {
   border: 10px solid var(--highlight-color);
 }
 
-/* Section 04 - Dungeons & Dragons Form */
-
 #section-form {
   flex-direction: column;
   align-items: center;
@@ -282,6 +318,9 @@ section {
 
 #section-form .form-content h3 {
   color: var(--highlight-color);
+  flex-basis: 30%;
+  text-align: left;
+  margin: 0;
 }
 
 #section-form .form-content h3 span {
@@ -294,14 +333,8 @@ section {
   align-items: center;
 }
 
-#section-form .form-content h3 {
-  flex-basis: 30%;
-  text-align: left;
-  margin: 0;
-}
-
 #section-form .form-container {
-  flex-basis: 50%;
+  width: 50%;
   position: relative;
 }
 
@@ -360,7 +393,7 @@ footer::after {
   content: "";
   width: 300px;
   height: 200px;
-  background: url("../images/footer/tape.svg") no-repeat;
+  background: url(../images/footer/tape.svg) no-repeat;
   background-size: contain;
   position: absolute;
   bottom: -30px;
@@ -374,27 +407,4 @@ footer::before {
 footer::after {
   right: -50px;
   transform: rotateZ(10deg);
-}
-
-input,
-textarea {
-  border: 2px solid var(--primary-color-contrast);
-  background-color: var(--field-background-color);
-  color: var(--primary-color-contrast);
-  padding: 8px;
-}
-
-input,
-textarea {
-  margin-bottom: 24px;
-}
-
-label {
-  margin-bottom: 8px;
-}
-
-input:focus-visible,
-textarea:focus-visible {
-  outline: none;
-  border-color: black;
 }
